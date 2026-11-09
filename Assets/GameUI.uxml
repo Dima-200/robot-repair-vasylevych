@@ -1,0 +1,12 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="EndScreen" src="project://database/Assets/EndScreen.uxml?fileID=9197481963319205126&amp;guid=431fad0d3500e554cbcabb3919307463&amp;type=3#EndScreen"/>
+    <ui:Template name="NPCDialogue" src="project://database/Assets/NPCDialogue.uxml?fileID=9197481963319205126&amp;guid=bd5fc84d5469571468c2d4fed1649d32&amp;type=3#NPCDialogue"/>
+    <ui:VisualElement name="HealthBarBackground" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/_2DAdventureGame/Art/SugarLand/UI/UIHealthFrame.png?fileID=2800000&amp;guid=587ae468f8de9ec419f7f86c5433bcbf&amp;type=3#UIHealthFrame&quot;); width: 25%; height: 25%; -unity-background-scale-mode: scale-to-fit;">
+        <ui:VisualElement name="HealthBarContainer" style="flex-grow: 1; position: absolute; height: 40%; width: 48%; top: 30%; left: 45%;">
+            <ui:VisualElement name="HealthBar" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/_2DAdventureGame/Art/SugarLand/UI/UIHealthBar.png?fileID=2800000&amp;guid=b28ee55f43291f14ab9219808f397b88&amp;type=3#UIHealthBar&quot;); -unity-background-scale-mode: stretch-to-fill; width: 100%; height: 100%; position: relative; top: auto; left: auto; flex-shrink: 0;"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="CharacterPortrait" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/_2DAdventureGame/Art/SugarLand/UI/CharacterPortrait.png?fileID=2800000&amp;guid=e8af26c6841fc05459ccaf23dbab2b63&amp;type=3#CharacterPortrait&quot;); -unity-background-scale-mode: scale-to-fit; position: absolute; height: 81%; width: 25%; top: 5%; left: 12.5%;"/>
+    </ui:VisualElement>
+    <ui:Instance template="NPCDialogue" name="NPCDialogue" style="position: absolute; top: 70%; right: 10%; bottom: 0%; left: 10%;"/>
+    <ui:Instance template="EndScreen" name="EndScreen" style="width: 100%; height: 100%; position: absolute; top: 0; right: 0; bottom: 0; left: 0;"/>
+</ui:UXML>

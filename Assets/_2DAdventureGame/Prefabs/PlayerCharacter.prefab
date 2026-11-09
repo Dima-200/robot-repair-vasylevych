@@ -204,19 +204,37 @@ MonoBehaviour:
     type: 3}
   LaunchAction:
     m_Name: Launch
-    m_Type: 0
-    m_ExpectedControlType: 
+    m_Type: 1
+    m_ExpectedControlType: Button
     m_Id: 097fa304-c5ee-4b9c-a381-345e2d9e8d26
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: 398ddcac-3e25-461d-9244-9cd0ab3fb27b
+      m_Id: d7b722ee-2e2f-439f-9211-87445c2ff717
       m_Path: <Keyboard>/c
       m_Interactions: 
       m_Processors: 
       m_Groups: 
       m_Action: Launch
+      m_Flags: 0
+    m_Flags: 0
+    m_Priority: 0
+  TalkAction:
+    m_Name: Talk
+    m_Type: 1
+    m_ExpectedControlType: Button
+    m_Id: 852b5b43-2853-4a5b-8ded-954b4abac829
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: f25ef7f3-f297-4c89-9fd1-14c2a2031698
+      m_Path: <Keyboard>/x
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Talk
       m_Flags: 0
     m_Flags: 0
     m_Priority: 0
@@ -244,9 +262,9 @@ Rigidbody2D:
     serializedVersion: 2
     m_Bits: 0
   m_Interpolate: 0
-  m_SleepingMode: 0
+  m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &130432314799667633
 BoxCollider2D:
   m_ObjectHideFlags: 0
