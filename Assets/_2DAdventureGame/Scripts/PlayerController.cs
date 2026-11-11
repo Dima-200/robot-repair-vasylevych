@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
@@ -29,6 +30,7 @@ public class PlayerController : MonoBehaviour
         MoveAction.Enable();
         LaunchAction.Enable();
         TalkAction.Enable();
+
         rigidbody2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         currentHealth = maxHealth;
@@ -52,10 +54,9 @@ public class PlayerController : MonoBehaviour
         if (isInvincible)
         {
             damageCooldown -= Time.deltaTime;
+
             if (damageCooldown < 0)
-            {
                 isInvincible = false;
-            }
         }
 
         if (LaunchAction.WasPressedThisFrame())
@@ -71,6 +72,7 @@ public class PlayerController : MonoBehaviour
         {
             NonPlayerCharacter npc =
                 hit.collider.GetComponent<NonPlayerCharacter>();
+
             npc.dialogueBubble.SetActive(true);
             lastNonPlayerCharacter = npc;
             FindFriend();
@@ -89,6 +91,7 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 position = (Vector2)rigidbody2d.position
             + move * speed * Time.deltaTime;
+
         rigidbody2d.MovePosition(position);
     }
 
@@ -97,30 +100,40 @@ public class PlayerController : MonoBehaviour
         if (amount < 0)
         {
             if (isInvincible)
-            {
                 return;
-            }
+
             isInvincible = true;
             damageCooldown = timeInvincible;
             animator.SetTrigger("Hit");
         }
 
-        currentHealth = Mathf.Clamp(currentHealth + amount,
-            0, maxHealth);
+        currentHealth = Mathf.Clamp(
+            currentHealth + amount, 0, maxHealth);
+
         UIHandler.instance.SetHealthValue(
             currentHealth / (float)maxHealth);
     }
 
     void Launch()
     {
-        GameObject projectileObject = Instantiate(projectilePrefab,
-            rigidbody2d.position + Vector2.up * 0.5f,
+        if (projectilePrefab == null)
+            return;
+
+        GameObject projectileObject = Instantiate(
+            projectilePrefab,
+            rigidbody2d.position + moveDirection * 0.8f,
             Quaternion.identity);
 
         Projectile projectile =
             projectileObject.GetComponent<Projectile>();
-        projectile.Launch(moveDirection, 300);
 
+        if (projectile == null)
+        {
+            Destroy(projectileObject);
+            return;
+        }
+
+        projectile.Launch(moveDirection, 300);
         animator.SetTrigger("Launch");
     }
 

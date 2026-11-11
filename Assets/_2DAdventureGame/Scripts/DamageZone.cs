@@ -1,7 +1,10 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
 
 public class DamageZone : MonoBehaviour
 {
+    public int damage = 1;
+
     void OnTriggerStay2D(Collider2D other)
     {
         PlayerController controller =
@@ -9,8 +12,7 @@ public class DamageZone : MonoBehaviour
 
         if (controller != null)
         {
-            controller.ChangeHealth(-1);
+            controller.ChangeHealth(-damage);
         }
     }
 }
-

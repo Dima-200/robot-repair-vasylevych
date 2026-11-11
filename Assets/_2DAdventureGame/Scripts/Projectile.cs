@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
@@ -19,6 +20,10 @@ public class Projectile : MonoBehaviour
 
     public void Launch(Vector2 direction, float force)
     {
+        if (rigidbody2d == null)
+            return;
+
+        rigidbody2d.linearVelocity = Vector2.zero;
         rigidbody2d.AddForce(direction * force);
     }
 
@@ -30,13 +35,19 @@ public class Projectile : MonoBehaviour
         if (enemy != null)
         {
             enemy.Fix();
+            Destroy(gameObject);
         }
-
-        Destroy(gameObject);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        Destroy(gameObject);
+        EnemyController enemy =
+            collision.gameObject.GetComponent<EnemyController>();
+
+        if (enemy != null)
+        {
+            enemy.Fix();
+            Destroy(gameObject);
+        }
     }
 }
