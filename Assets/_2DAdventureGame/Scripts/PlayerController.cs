@@ -1,6 +1,7 @@
 ﻿
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
@@ -23,6 +24,11 @@ public class PlayerController : MonoBehaviour
     public GameObject projectilePrefab;
     public InputAction LaunchAction;
     public InputAction TalkAction;
+    public AudioClip hitSound;
+    public AudioClip healSound;
+    SpriteRenderer spriteRenderer;
+    Color originalColor;
+    Coroutine feedbackRoutine;
     private NonPlayerCharacter lastNonPlayerCharacter;
 
     void Start()
@@ -33,6 +39,9 @@ public class PlayerController : MonoBehaviour
 
         rigidbody2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
+            originalColor = spriteRenderer.color;
         currentHealth = maxHealth;
     }
 
@@ -105,6 +114,8 @@ public class PlayerController : MonoBehaviour
             isInvincible = true;
             damageCooldown = timeInvincible;
             animator.SetTrigger("Hit");
+            PlayFeedback(hitSound);
+            ShowFeedback(new Color(1f, 0.55f, 0.55f));
         }
 
         currentHealth = Mathf.Clamp(
@@ -112,6 +123,37 @@ public class PlayerController : MonoBehaviour
 
         UIHandler.instance.SetHealthValue(
             currentHealth / (float)maxHealth);
+    }
+
+    public void PlayHealFeedback()
+    {
+        PlayFeedback(healSound);
+        ShowFeedback(new Color(0.55f, 1f, 0.65f));
+    }
+
+    void PlayFeedback(AudioClip clip)
+    {
+        if (clip != null)
+            AudioSource.PlayClipAtPoint(clip, transform.position);
+    }
+
+    void ShowFeedback(Color color)
+    {
+        if (spriteRenderer == null)
+            return;
+
+        if (feedbackRoutine != null)
+            StopCoroutine(feedbackRoutine);
+        feedbackRoutine = StartCoroutine(FlashSprite(color));
+    }
+
+    IEnumerator FlashSprite(Color color)
+    {
+        spriteRenderer.color = color;
+        yield return new WaitForSecondsRealtime(0.12f);
+        if (spriteRenderer != null)
+            spriteRenderer.color = originalColor;
+        feedbackRoutine = null;
     }
 
     void Launch()

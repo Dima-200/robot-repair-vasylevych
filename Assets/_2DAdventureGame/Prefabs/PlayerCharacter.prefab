@@ -238,6 +238,8 @@ MonoBehaviour:
       m_Flags: 0
     m_Flags: 0
     m_Priority: 0
+  hitSound: {fileID: 8300000, guid: c7d3a91ac32abbe47a8931a8ffc37bc6, type: 3}
+  healSound: {fileID: 8300000, guid: 173a14cf06354c643b46b235f2a4f974, type: 3}
 --- !u!50 &4417852218303712584
 Rigidbody2D:
   serializedVersion: 5

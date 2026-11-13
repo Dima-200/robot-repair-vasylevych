@@ -14,6 +14,7 @@ public class HealthCollectible : MonoBehaviour
             && controller.health < controller.maxHealth)
         {
             controller.ChangeHealth(amount);
+            controller.PlayHealFeedback();
             Destroy(gameObject);
         }
     }

@@ -1,6 +1,7 @@
 ﻿
 using UnityEngine;
 using UnityEngine.UIElements;
+using System;
 
 public class UIHandler : MonoBehaviour
 {
@@ -13,6 +14,10 @@ public class UIHandler : MonoBehaviour
     private VisualElement m_Healthbar;
     private VisualElement m_WinScreen;
     private VisualElement m_LoseScreen;
+    private VisualElement m_StartScreen;
+    private Button m_StartButton;
+    private Button m_WinRestartButton;
+    private Button m_LoseRestartButton;
 
     private void Awake()
     {
@@ -39,9 +44,31 @@ public class UIHandler : MonoBehaviour
 
         m_WinScreen = uiDocument.rootVisualElement
             .Q<VisualElement>("WinScreenContainer");
+        m_StartScreen = uiDocument.rootVisualElement
+            .Q<VisualElement>("StartScreenContainer");
+        m_StartButton = uiDocument.rootVisualElement
+            .Q<Button>("StartButton");
+        m_WinRestartButton = uiDocument.rootVisualElement
+            .Q<Button>("WinRestartButton");
+        m_LoseRestartButton = uiDocument.rootVisualElement
+            .Q<Button>("LoseRestartButton");
 
         m_WinScreen.style.display = DisplayStyle.None;
         m_LoseScreen.style.display = DisplayStyle.None;
+        m_StartScreen.style.display = DisplayStyle.None;
+    }
+
+    public void ShowStartScreen(Action startGame, Action restartGame)
+    {
+        m_StartButton.clicked += () =>
+        {
+            m_StartScreen.style.display = DisplayStyle.None;
+            startGame?.Invoke();
+        };
+        m_WinRestartButton.clicked += () => restartGame?.Invoke();
+        m_LoseRestartButton.clicked += () => restartGame?.Invoke();
+        m_StartScreen.style.display = DisplayStyle.Flex;
+        Time.timeScale = 0f;
     }
 
     public void SetHealthValue(float percentage)

@@ -183,6 +183,7 @@ MonoBehaviour:
   speed: 0
   vertical: 0
   changeTime: 3
+  fixSound: {fileID: 8300000, guid: 4e356d8e36201c14da953082c4d569ab, type: 3}
 --- !u!95 &1096173502001322444
 Animator:
   serializedVersion: 7

@@ -9,22 +9,23 @@ public class GameManager : MonoBehaviour
     public UIHandler uiHandler;
 
     private bool gameEnded = false;
+    private bool gameStarted = false;
 
     void Start()
     {
         enemies = FindObjectsByType<EnemyController>(
             FindObjectsSortMode.None);
+        uiHandler.ShowStartScreen(BeginGame, ReloadScene);
     }
 
     void Update()
     {
-        if (gameEnded) return;
+        if (gameEnded || !gameStarted) return;
 
         if (player.health <= 0)
         {
             gameEnded = true;
             uiHandler.DisplayLoseScreen();
-            Invoke(nameof(ReloadScene), 3f);
             return;
         }
 
@@ -32,7 +33,6 @@ public class GameManager : MonoBehaviour
         {
             gameEnded = true;
             uiHandler.DisplayWinScreen();
-            Invoke(nameof(ReloadScene), 3f);
         }
     }
 
@@ -47,8 +47,15 @@ public class GameManager : MonoBehaviour
         return true;
     }
 
-    void ReloadScene()
+    void BeginGame()
     {
+        gameStarted = true;
+        Time.timeScale = 1f;
+    }
+
+    public void ReloadScene()
+    {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(
             SceneManager.GetActiveScene().name);
     }
